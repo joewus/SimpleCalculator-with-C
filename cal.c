@@ -1,4 +1,7 @@
-#include <stdio.h>
+ #include <stdio.h>
+#include <math.h>
+
+float squareRoot(float c);
 
 int main() {
     int a, b;
@@ -7,14 +10,33 @@ int main() {
 
     // Prompt the user for the type of operation
     printf("Hello, what operation would you like to carry out?\n");
-    printf("Select 1 for addition, 2 for subtraction, 3 for multiplication, 4 for division: ");
+    printf("Select 1 for addition, 2 for subtraction, 3 for multiplication, 4 for division or 5 for square root: ");
     if (scanf("%d", &type) != 1) {
         printf("Invalid input. Please enter a number.\n");
         return 1;
     }
 
+    // Check if the user selected square root
+    if (type == 5) {
+        printf("Enter a non-negative number for your square root: ");
+        if (scanf("%d", &a) != 1) {
+            printf("Invalid input. Please enter a number.\n");
+            return 1;
+        }
+
+        if (a < 0) {
+            printf("Square root of negative number is not possible.\n");
+            return 1;
+        }
+
+        result = squareRoot(a); 
+        printf("The square root of %d is %.2f\n", a, result);
+        return 0; // End the program after square root calculation
+    }
+
+    // Check if the user selected an invalid operation
     if (type < 1 || type > 4) {
-        printf("Unknown operation. Please select 1, 2, 3, or 4.\n");
+        printf("Unknown operation. Please select 1, 2, 3, 4 or 5.\n");
         return 1;
     }
 
@@ -53,10 +75,11 @@ int main() {
                 printf("Invalid operation, division by zero not allowed\n");
             }
             break;
-        default:
-            printf("Unknown operation, try selecting 1, 2, 3, or 4\n");
-            break;
     }
 
     return 0;
+}
+
+float squareRoot(float c) {
+    return sqrt(c);
 }
